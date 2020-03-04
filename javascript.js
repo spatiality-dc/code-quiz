@@ -5,17 +5,11 @@ const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-btn-grid");
 var randomQuestions, currentQuestionIndex;
 
-const questions = [
-  {
-    question: "What is 2 + 2?",
-    answers: [
-      { text: "4", correct: true },
-      { text: "22", correct: false }
-    ]
-  }
-];
-
 startButton.addEventListener("click", startGame);
+nextButton.addEventListener("click", () => {
+  currentQuestionIndex++;
+  nextQuestion();
+});
 
 function startGame() {
   startButton.classList.add("hide");
@@ -51,9 +45,13 @@ function selectAnswer(e) {
   Array.from(answerButtonsElement.children).forEach(button => {
     setStatusClass(button, button.dataset.correct);
   });
+  if (randomQuestions.length > currentQuestionIndex + 1) {
+    nextButton.classList.remove("hide");
+  } else {
+    startButton.innerText = "Restart";
+    startButton.classList.remove("hide");
+  }
 }
-
-debugger;
 
 function setStatusClass(element, correct) {
   clearStatusClass(element);
@@ -70,8 +68,89 @@ function clearStatusClass(element) {
 }
 
 function resetState() {
+  clearStatusClass(document.body);
   nextButton.classList.add("hide");
   while (answerButtonsElement.firstChild) {
     answerButtonsElement.removeChild(answerButtonsElement.firstChild);
   }
 }
+
+const questions = [
+  {
+    question: "var a; if (a) {return true;} else {return false;}",
+    answers: [
+      { text: "true", correct: true },
+      { text: "false", correct: false }
+    ]
+  },
+  {
+    question: 'var b = ""; if (b) {return true;} else {return false;}',
+    answers: [
+      { text: "true", correct: false },
+      { text: "false", correct: true }
+    ]
+  },
+  {
+    question:
+      'var a; var b = ""; if (a == b) {return true;} else {return false;}',
+    answers: [
+      { text: "true", correct: true },
+      { text: "false", correct: false }
+    ]
+  },
+  {
+    question: "var a = 0; if (a) {return true;} else {return false;}",
+    answers: [
+      { text: "true", correct: true },
+      { text: "false", correct: false }
+    ]
+  },
+  {
+    question:
+      'var a = ["a"]; var b = "b"; if (a.indexOf(b)) {return true;} else {return false;}',
+    answers: [
+      { text: "true", correct: true },
+      { text: "false", correct: false }
+    ]
+  },
+  {
+    question: 'var a = "a"; if (a = 1) {return true;} else {return false;}',
+    answers: [
+      { text: "true", correct: true },
+      { text: "false", correct: false }
+    ]
+  },
+  {
+    question: 'var a = "a"; if (a = 0) {return true;} else {return false;}',
+    answers: [
+      { text: "true", correct: true },
+      { text: "false", correct: false }
+    ]
+  },
+  {
+    question:
+      "var a = true; var b = false; if (a || b) {return true;} else {return false;}",
+    answers: [
+      { text: "true", correct: true },
+      { text: "false", correct: false }
+    ]
+  },
+  {
+    question: "var a; var b = a || 0; b ===",
+    answers: [
+      { text: "true", correct: false },
+      { text: "false", correct: false },
+      { text: "undefined", correct: false },
+      { text: "0", correct: true }
+    ]
+  },
+  {
+    question: 'var a = ["a", "b", "c"]; var b = ["d", "e", "f"]; a + b ===',
+    answers: [
+      { text: '["a", "b", "c", "d", "e", "f"]', correct: false },
+      { text: "abcdef", correct: false },
+      { text: '"a", "b", "c", "d", "e", "f"', correct: false },
+      { text: "a,b,cd,e,f", correct: true }
+    ]
+  }
+];
