@@ -8,20 +8,36 @@
   </head>
   <body>
     <div class="container --main-bg-correct">
-      <div class="timeDiv">Time left <span id="time"> 02:00</span>!</div>
-      <div id="question-box" class="hide">
-        <div id="question">Question</div>
-        <div id="answer-btn-grid" class="btn-grid">
-          <button class="btn">Answer 1</button>
-          <button class="btn">Answer 2</button>
-          <button class="btn">Answer 3</button>
-          <button class="btn">Answer 4</button>
+      <div id="innestBox" class="flex-center flex-column">
+        <div id="introText">
+          <h1>Javascript Code Quiz</h1>
+          <p>
+            Take this quiz on Javascript, but beware! For every incorrect
+            answer, 10s will be removed from your time. Only the fastest players will be added to the High Scores list.
+          </p>
         </div>
-        <div id="results-box" class="hide"></div>
       </div>
-      <div class="controls">
-        <button id="start-btn" class="start-btn btn">Start</button>
-        <button id="next-btn" class="next-btn btn hide">Next Question</button>
+        <div class="timeDiv">
+          Time left &nbsp; <span id="time"> 02:00</span>!
+        </div>
+        <div id="question-box" class="hide">
+          <div id="question">Question</div>
+          <div id="answer-btn-grid" class="btn-grid">
+            <button class="btn">Answer 1</button>
+            <button class="btn">Answer 2</button>
+            <button class="btn">Answer 3</button>
+            <button class="btn">Answer 4</button>
+          </div>
+
+          <div id="results-box" class="hide"></div>
+        </div>
+        <div class="controls">
+          <button id="start-btn" class="start-btn btn">Start</button>
+          <button id="next-btn" class="next-btn btn hide">Next Question</button>
+          <button id="scores-btn" class="scores-btn btn hide">
+            Submit High Score
+          </button>
+        </div>
       </div>
     </div>
     <script src="javascript.js"></script>
