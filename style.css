@@ -34,6 +34,16 @@ body {
   box-shadow: 0 0 0px 2px;
 }
 
+.timeDiv {
+  width: 300px;
+  max-width: 30%;
+  background-color: snow;
+  margin: 20px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
 .btn-grid {
   display: grid;
   grid-template-columns: repeat(2, auto);
