@@ -25,14 +25,6 @@ body {
   background-color: hsl(var(--hue), 100%, 20%);
 }
 
-body.correct {
-  --hue: var(--hue-correct);
-}
-
-body.wrong {
-  --hue: var(--hue-wrong);
-}
-
 .container {
   width: 800px;
   max-width: 80%;
