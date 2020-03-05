@@ -6,6 +6,7 @@ const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-btn-grid");
 const submitHighScore = document.getElementById("scores-btn");
 const incorrectPenalty = 10;
+const highscores = JSON.parse(localStorage.getItem("highscores") || "[]");
 
 var randomQuestions, currentQuestionIndex;
 
@@ -14,6 +15,12 @@ startButton.addEventListener("click", startGame);
 nextButton.addEventListener("click", () => {
   currentQuestionIndex++;
   nextQuestion();
+});
+submitHighScore.addEventListener("click", function() {
+  var time = document.querySelector("#time").textContent;
+  var initials = prompt("Input your initials here");
+  highscores.push({ time, initials });
+  localStorage.setItem("highscores", JSON.stringify(highscores));
 });
 
 function startGame() {
@@ -24,8 +31,8 @@ function startGame() {
   quizIntro.classList.add("hide");
   nextQuestion();
   startTimer();
-  var twoMinutes = 60 * 2,
-    display = document.querySelector("#time");
+  var twoMinutes = 60 * 2;
+  var display = document.querySelector("#time");
   startTimer(twoMinutes, display);
 }
 
@@ -60,6 +67,7 @@ function selectAnswer(e) {
     startButton.innerText = "Play again?";
     startButton.classList.remove("hide");
     submitHighScore.classList.remove("hide");
+    clearInterval(timerId);
   }
 }
 
@@ -167,22 +175,36 @@ const questions = [
   }
 ];
 
+var timerId;
+
 //Timer interval
 function startTimer(duration, display) {
-  var timer = duration,
-    minutes,
-    seconds;
-  setInterval(function() {
-    minutes = parseInt(timer / 60, 10);
-    seconds = parseInt(timer % 60, 10);
+  var timeRemaining = duration;
+  var minutes;
+  var seconds;
+  if (timerId) {
+    clearInterval(timerId);
+  }
+  timerId = setInterval(function() {
+    minutes = parseInt(timeRemaining / 60, 10);
+    seconds = parseInt(timeRemaining % 60, 10);
 
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
     display.textContent = minutes + ":" + seconds;
 
-    if (--timer < 0) {
-      timer = duration;
+    if (--timeRemaining < 0) {
+      timeRemaining = duration;
+      clearInterval(timerId);
     }
   }, 1000);
 }
+
+//Add in time decrement for incorrect answers
+//Add stop time function to end of quiz
+//Parse in remaining time as "score" - local storage
+//On button click, scores-btn
+//Add alert or similar for initials input
+//Local storage for initials and scores
+//Reset timer on "PLay again"
